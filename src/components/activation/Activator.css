@@ -1,0 +1,98 @@
+.activator-div {
+  color: black;
+  margin: 0 auto;
+}
+
+h2 {
+  color: black;
+  text-align: center;
+  font-size: 23px;
+}
+
+.activate-form {
+  margin: 25px 25px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+  font-size: 15px;
+}
+
+input[type="text"],
+select {
+  height: 35px;
+  width: 320px;
+  border: 3px solid skyblue;
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+input[type="text"] {
+  padding-left: 10px;
+}
+
+select {
+  padding-left: 5px;
+  appearance: none;
+}
+
+select option {
+  background-color: white;
+  color: #333;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+input[type="text"]:hover,
+select:hover {
+  border-color: #4a94c3;
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: #4a94c3;
+}
+
+textarea[name="moreInfo"] {
+  height: 70px;
+  width: 320px;
+  border: 3px solid skyblue;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 10px; /* Add left padding to text area */
+  transition: border-color 0.3s;
+}
+
+/* Hover and focus styles for "More Info" and "Photo" fields */
+textarea[name="moreInfo"]:hover,
+textarea[name="moreInfo"]:focus {
+  border-color: #4a94c3;
+}
+
+.get-my-qr {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border: 3px solid skyblue;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  display: block;
+  margin: 25px auto;
+}
+
+.get-my-qr:hover {
+  background-color: rgb(231, 247, 253);
+}

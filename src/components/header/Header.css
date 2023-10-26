@@ -1,0 +1,19 @@
+.header-div {
+  display: flex;
+  color: skyblue;
+  border-bottom: 4px solid skyblue;
+  text-align: left;
+  align-items: center;
+  height: 8vh;
+  margin: 0;
+  padding: 0 15px;
+  font-size: 14px;
+}
+
+.header-div h1 {
+  margin-left: 10px;
+}
+
+.qr-icon {
+    height: 35px;
+}
