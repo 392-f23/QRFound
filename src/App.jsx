@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/header/Header";
 import ActivatePage from "./ActivatePage";
+import FoundPage from "./components/foundPage";
 import "./App.css";
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
         <Header/>
         <Routes>
           <Route path="/activate" element={<ActivatePage></ActivatePage>} />
+          <Route path="/found/:id" element={<FoundPage />} />
         </Routes>
       </Router>
     </div>
