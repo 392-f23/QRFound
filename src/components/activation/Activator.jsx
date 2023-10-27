@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import "./Activator.css";
+import { useDbAdd } from "../../utilities/firebase";
 
+// make the activator take in user profile from signing in
 const Activator = () => {
+  // setting errors for required fields
+  const [errors, setErrors] = useState({});
+
+  // set add
+  const [add, result] = useDbAdd("/registered_items");
+
   // for the firstName, lastName, phoneNumber, email, this should already be connected to the account when they log in
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
+    userId: "Tester ID",
+    firstName: "Tester First",
+    lastName: "Tester Last",
+    phoneNumber: "Tester Number",
+    email: "Tester Email",
     itemType: "",
     brand: "",
     color: "",
@@ -21,6 +30,12 @@ const Activator = () => {
       ...formData,
       [name]: value,
     });
+
+    if (errors[e.target.name]) {
+      const updatedErrors = { ...errors };
+      delete updatedErrors[e.target.name];
+      setErrors(updatedErrors);
+    }
   };
 
   const handleFileInputChange = (e) => {
@@ -33,12 +48,34 @@ const Activator = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here, you can handle the form submission logic,
-    // such as generating the QR code and saving the data.
-    // You can use formData object to access the form values.
-    // For now, let's just log the data.
     console.log(formData);
+
+    e.preventDefault();
+    const newErrors = {};
+    const requiredFields = ["itemType", "brand", "color"];
+    requiredFields.forEach((field) => {
+      if (!formData[field]) newErrors[field] = "missing field";
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    add(formData);
+    console.log(formData)
+    console.log("added");
+    setFormData({
+      userId: "",
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      email: "",
+      itemType: "",
+      brand: "",
+      color: "",
+      photo: "",
+      moreInfo: "",
+    });
   };
 
   return (
@@ -52,7 +89,9 @@ const Activator = () => {
             name="itemType"
             value={formData.itemType}
             onChange={handleInputChange}
+            className={errors.itemType ? "input-error" : ""}
           >
+            <option disabled value=""></option>
             <option value="Electronics">Electronics</option>
             <option value="Furniture">Furniture</option>
             <option value="Books">Books</option>
@@ -74,6 +113,7 @@ const Activator = () => {
             name="brand"
             value={formData.brand}
             onChange={handleInputChange}
+            className={errors.brand ? "input-error" : ""}
           />
         </div>
         <div className="form-group">
@@ -84,6 +124,7 @@ const Activator = () => {
             name="color"
             value={formData.color}
             onChange={handleInputChange}
+            className={errors.color ? "input-error" : ""}
           />
         </div>
         <div className="form-group">
@@ -107,7 +148,14 @@ const Activator = () => {
             rows="4"
           />
         </div>
-        <button className="get-my-qr" type="submit">Get My QR</button>
+        {Object.keys(errors).length > 0 && (
+          <div style={{ color: "red", marginTop: "10px", textAlign: "center" }}>
+            Please fill out the missing fields.
+          </div>
+        )}
+        <button className="get-my-qr" type="submit">
+          Get My QR
+        </button>
       </form>
     </div>
   );

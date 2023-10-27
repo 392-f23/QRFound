@@ -96,3 +96,7 @@ textarea[name="moreInfo"]:focus {
 .get-my-qr:hover {
   background-color: rgb(231, 247, 253);
 }
+
+.input-error {
+  background-color: rgb(255, 230, 234);
+}
