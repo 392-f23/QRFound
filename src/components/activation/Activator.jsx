@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Activator.css";
 import { useDbAdd } from "../../utilities/firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 // make the activator take in user profile from signing in
 const Activator = () => {
@@ -8,7 +9,8 @@ const Activator = () => {
   const [errors, setErrors] = useState({});
 
   // set add
-  const [add, result] = useDbAdd("/registered_items");
+  const newId = uuidv4()
+  const [add, result] = useDbAdd("/registered_items", newId);
 
   // for the firstName, lastName, phoneNumber, email, this should already be connected to the account when they log in
   const [formData, setFormData] = useState({
@@ -63,7 +65,6 @@ const Activator = () => {
     }
     add(formData);
     console.log(formData)
-    console.log("added");
     setFormData({
       userId: "",
       firstName: "",
