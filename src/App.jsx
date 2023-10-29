@@ -6,6 +6,7 @@ import Footer from "./components/footer/Footer";
 import FoundPage from "./components/found/foundPage";
 import QRPage from "./components/activation/QRPage";
 import ActivatePage from "./ActivatePage";
+import FoundPage from "./components/foundPage";
 import "./App.css";
 
 const App = () => {
