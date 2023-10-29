@@ -1,19 +1,39 @@
 .header-div {
   display: flex;
-  color: skyblue;
-  border-bottom: 4px solid skyblue;
-  text-align: left;
   align-items: center;
-  height: 8vh;
-  margin: 0;
-  padding: 0 15px;
-  font-size: 14px;
-}
-
-.header-div h1 {
-  margin-left: 10px;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  position: relative;
 }
 
 .qr-icon {
-    height: 35px;
+  width: 40px;
+  height: 40px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+  text-align: center; /* Center the text horizontally */
+  flex: 1;
+}
+
+.header-button {
+  display: flex; /* Display the button container as a flex container */
+  align-items: center; /* Center vertically within the button container */
+}
+
+.google-signin-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.google-signin-btn img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px; /* Add margin to separate the button and profile picture */
 }

@@ -7,12 +7,15 @@ import FoundPage from "./components/found/foundPage";
 import QRPage from "./components/activation/QRPage";
 import ActivatePage from "./ActivatePage";
 import "./App.css";
+import { useProfile } from "./utilities/profile";
+
 
 const App = () => {
+  const [{ user, isAdmin, emailVerified }, profileLoading, profileError] = useProfile();
   return (
     <div className="app-div">
       <Router>
-        <Header />
+      <Header user={user} />
         <Routes>
           <Route path="/activate" element={<ActivatePage></ActivatePage>} />
           <Route path="found/:id" element={<FoundPage></FoundPage>} />
