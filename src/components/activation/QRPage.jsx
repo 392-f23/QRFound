@@ -6,7 +6,7 @@ import "./QRPage.css";
 
 const QRPage = () => {
   const id = window.location.pathname.split("/").pop();
-  const url = `https://qrfound.web.app/found/${id}`;
+  const url = `https://qrfound-95d07.web.app/found/${id}`;
   const qrCodeRef = useRef(null);
 
   const handleDownload = () => {

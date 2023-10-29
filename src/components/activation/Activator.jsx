@@ -8,10 +8,6 @@ const Activator = () => {
   // setting errors for required fields
   const [errors, setErrors] = useState({});
 
-  // set add
-  const newId = uuidv4();
-  const [add, result] = useDbAdd("/registered_items", newId);
-
   // for the firstName, lastName, phoneNumber, email, this should already be connected to the account when they log in
   const [formData, setFormData] = useState({
     userId: "Tester ID",
@@ -51,6 +47,9 @@ const Activator = () => {
   };
 
   const handleSubmit = (e) => {
+    // set add
+    const newId = uuidv4();
+    const [add, result] = useDbAdd("/registered_items", newId);
     console.log(formData);
 
     e.preventDefault();

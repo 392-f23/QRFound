@@ -6,14 +6,13 @@ import Footer from "./components/footer/Footer";
 import FoundPage from "./components/found/foundPage";
 import QRPage from "./components/activation/QRPage";
 import ActivatePage from "./ActivatePage";
-import FoundPage from "./components/foundPage";
 import "./App.css";
 
 const App = () => {
   return (
     <div className="app-div">
       <Router>
-        <Header/>
+        <Header />
         <Routes>
           <Route path="/activate" element={<ActivatePage></ActivatePage>} />
           <Route path="found/:id" element={<FoundPage></FoundPage>} />
