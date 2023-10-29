@@ -1,14 +1,15 @@
 .footer {
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(254, 254, 254);
   position: fixed;
   z-index: 100;
   bottom: 0;
   left: 0;
-  height: 10vh;
+  height: 15vh;
   max-height: 60px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  border-top: 4px solid skyblue;
 }
 
 .footer-btn {

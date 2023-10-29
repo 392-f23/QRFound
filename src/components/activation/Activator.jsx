@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Activator.css";
 import { useDbAdd } from "../../utilities/firebase";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 // make the activator take in user profile from signing in
 const Activator = () => {
@@ -9,7 +9,7 @@ const Activator = () => {
   const [errors, setErrors] = useState({});
 
   // set add
-  const newId = uuidv4()
+  const newId = uuidv4();
   const [add, result] = useDbAdd("/registered_items", newId);
 
   // for the firstName, lastName, phoneNumber, email, this should already be connected to the account when they log in
@@ -19,6 +19,7 @@ const Activator = () => {
     lastName: "Tester Last",
     phoneNumber: "Tester Number",
     email: "Tester Email",
+    itemName: "",
     itemType: "",
     brand: "",
     color: "",
@@ -54,7 +55,7 @@ const Activator = () => {
 
     e.preventDefault();
     const newErrors = {};
-    const requiredFields = ["itemType", "brand", "color"];
+    const requiredFields = ["itemName", "itemType", "brand", "color"];
     requiredFields.forEach((field) => {
       if (!formData[field]) newErrors[field] = "missing field";
     });
@@ -64,13 +65,16 @@ const Activator = () => {
       return;
     }
     add(formData);
-    console.log(formData)
+    const newUrl = `myqr/${newId}`;
+    window.location.href = newUrl;
+
     setFormData({
       userId: "",
       firstName: "",
       lastName: "",
       phoneNumber: "",
       email: "",
+      itemName: "",
       itemType: "",
       brand: "",
       color: "",
@@ -83,6 +87,17 @@ const Activator = () => {
     <div className="activator-div">
       <h2 className="register-your-item">Register Your Item</h2>
       <form className="activate-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="brand">ITEM NAME</label>
+          <input
+            type="text"
+            id="itemName"
+            name="itemName"
+            value={formData.itemName}
+            onChange={handleInputChange}
+            className={errors.itemName ? "input-error" : ""}
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="itemType">ITEM TYPE</label>
           <select

@@ -7,12 +7,12 @@ const Footer = () => {
     <div className="footer">
       <button className="footer-btn home-btn">
         <Link className="nav-link" to="/">
-          <img src="icons/home.png" alt="Home" />
+          <img src="/home.png" alt="Home" />
         </Link>
       </button>
       <button className="footer-btn post-btn">
         <Link className="nav-link" to="/activate">
-          <img src="icons/add.png" alt="add" />
+          <img src="/add.png" alt="add" />
         </Link>
       </button>
     </div>
