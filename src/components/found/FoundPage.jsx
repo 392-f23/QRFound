@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDbData, useDbUpdate } from "../../utilities/firebase";
+import { useParams } from "react-router-dom";  // <-- Import useParams
 import "./FoundPage.css";
 
 const FoundPage = () => {
   const [item, setItem] = useState(null);
-  const itemId = window.location.pathname.split("/").pop();
+  const { id: itemId } = useParams();  // <-- Use useParams to get the id
 
   // Use your defined hook to get item data
   const [dbItem] = useDbData(`registered_items/${itemId}`);
