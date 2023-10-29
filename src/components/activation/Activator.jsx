@@ -45,11 +45,12 @@ const Activator = () => {
       photo: file, // Store the file object in the formData
     });
   };
+  
+  // set add
+  const newId = uuidv4();
+  const [add, result] = useDbAdd("/registered_items", newId);
 
   const handleSubmit = (e) => {
-    // set add
-    const newId = uuidv4();
-    const [add, result] = useDbAdd("/registered_items", newId);
     console.log(formData);
 
     e.preventDefault();
