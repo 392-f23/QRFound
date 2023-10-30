@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Activator.css";
 import { useDbAdd } from "../../utilities/firebase";
 import { v4 as uuidv4 } from "uuid";
+import { useProfile } from "../../utilities/profile.js";
 
 // make the activator take in user profile from signing in
-const Activator = () => {
+const Activator = ({ user }) => {
   // setting errors for required fields
   const [errors, setErrors] = useState({});
+  const [location, setLocation] = useState(null);
 
-  // for the firstName, lastName, phoneNumber, email, this should already be connected to the account when they log in
   const [formData, setFormData] = useState({
-    userId: "Tester ID",
-    firstName: "Tester First",
-    lastName: "Tester Last",
-    phoneNumber: "Tester Number",
-    email: "Tester Email",
+    userId: user?.user?.uid || "",
+    firstName: user?.user?.displayName.split(" ")[0] || "",
+    lastName: user?.user?.displayName.split(" ")[1] || "",
+    email: user?.user?.email || "",
+    phoneNumber: "",
     itemName: "",
     itemType: "",
     brand: "",
@@ -22,6 +23,19 @@ const Activator = () => {
     photo: "",
     moreInfo: "",
   });
+
+  useEffect(() => {
+    if (user && user.user && location) {
+      setFormData((prevState) => ({
+        ...prevState,
+        userId: user.user.uid,
+        firstName: user.user.displayName.split(" ")[0],
+        lastName: user.user.displayName.split(" ")[1],
+        email: user.user.email,
+        location: [location?.latitude, location?.longitude],
+      }));
+    }
+  }, [user, location]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,13 +59,13 @@ const Activator = () => {
       photo: file, // Store the file object in the formData
     });
   };
-  
+
   // set add
   const newId = uuidv4();
   const [add, result] = useDbAdd("/registered_items", newId);
 
   const handleSubmit = (e) => {
-    console.log(formData);
+    console.log("going into the form", formData);
 
     e.preventDefault();
     const newErrors = {};
@@ -69,11 +83,11 @@ const Activator = () => {
     window.location.href = newUrl;
 
     setFormData({
-      userId: "",
-      firstName: "",
-      lastName: "",
+      userId: user?.user?.uid || "",
+      firstName: user?.user?.displayName.split(" ")[0] || "",
+      lastName: user?.user?.displayName.split(" ")[1] || "",
+      email: user?.user?.email || "",
       phoneNumber: "",
-      email: "",
       itemName: "",
       itemType: "",
       brand: "",
