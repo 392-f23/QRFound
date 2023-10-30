@@ -6,13 +6,13 @@
   text-align: center;
 }
 
-h2 {
+.item-title {
   color: black;
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-button {
+.update-location {
   background-color: skyblue;
   color: white;
   border: none;
@@ -23,6 +23,6 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.update-location:hover {
   background-color: #007acc; /* Darker shade of sky blue */
 }

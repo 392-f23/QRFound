@@ -1,39 +1,56 @@
 .header-div {
   display: flex;
+  color: skyblue;
+  border-bottom: 4px solid skyblue;
+  text-align: left;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
+  height: 8vh;
+  margin: 0;
+  padding: 0 15px;
+  font-size: 14px;
   position: relative;
 }
 
-.qr-icon {
-  width: 40px;
-  height: 40px;
+.header-div h1 {
+  margin-left: 10px;
 }
 
-h1 {
-  margin: 0;
-  font-size: 24px;
-  text-align: center; /* Center the text horizontally */
-  flex: 1;
+.qr-icon {
+  height: 35px;
 }
 
 .header-button {
-  display: flex; /* Display the button container as a flex container */
-  align-items: center; /* Center vertically within the button container */
-}
-
-.google-signin-btn {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+  position: absolute;
+  top: 20%;
+  right: 15px;
 }
 
 .google-signin-btn img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-left: 10px; /* Add margin to separate the button and profile picture */
+}
+
+.google-signin-btn {
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 10px;
+  border: 3px solid skyblue;
+  font-weight: 700;
+  background: rgb(238, 248, 251);
+}
+
+.google-signin-btn:hover {
+  background: rgb(204, 240, 254);
+}
+
+.google-signed-in-btn img {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: -20%;
+  right: 0px;
+  background-color: transparent;
+  border: none;
 }

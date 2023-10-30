@@ -10,7 +10,7 @@ const Header = ({ user }) => {
 
       <div className="header-button">
         {user ? (
-          <button className="google-signin-btn" onClick={signOut}>
+          <button className="google-signed-in-btn" onClick={signOut}>
             <img
               src={user.photoURL || "url_to_default_profile_pic.png"}
               alt={user.displayName || "User Profile"}

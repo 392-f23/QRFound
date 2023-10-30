@@ -40,7 +40,7 @@ const FoundPage = () => {
     <div className="activate-container">
       {item ? (
         <>
-          <h2>You just found a {item.itemName}!</h2>
+          <h2 className="item-title">You just found a {item.itemName}!</h2>
           <p>
             <strong>Brand:</strong> {item.brand}
           </p>
@@ -51,7 +51,7 @@ const FoundPage = () => {
             <strong>Type:</strong> {item.itemType}
           </p>
           {/* You can continue listing other details as you prefer */}
-          <button onClick={updateLocation}>Update Location</button>
+          <button className="update-location" onClick={updateLocation}>Update Location</button>
         </>
       ) : (
         <p>Loading item details...</p>
