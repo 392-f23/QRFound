@@ -5,16 +5,14 @@ import ActivatePage from './ActivatePage';
 import './App.css';
 import Map from './components/map/Map';
 import Items from './components/items/Items';
+import {useDbData} from './utilities/firebase.js'
+import { useEffect } from 'react';
 
 const App = () => {
-  const items = [
-    { id: 1, name: 'iPhone 13' },
-    { id: 2, name: 'iPad Pro' },
-    { id: 3, name: 'MacBook Pro' },
-    { id: 4, name: 'Water Bottle' },
-    { id: 5, name: 'Backpack' },
-    // Add more devices here...
-  ];
+
+  const items = useDbData(`/registered_items`)
+
+
   return (
     <div className="App">
       {/* <Header></Header>
