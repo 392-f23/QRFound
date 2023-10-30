@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Activator.css";
-import { useDbAdd } from "../../utilities/firebase";
+import { useDbAdd, useDbUpdate } from "../../utilities/firebase";  
 import { v4 as uuidv4 } from "uuid";
 import { useProfile } from "../../utilities/profile.js";
 
@@ -23,6 +23,33 @@ const Activator = ({ user }) => {
     photo: "",
     moreInfo: "",
   });
+  const [loadingLocation, setLoadingLocation] = useState(true);
+
+    useEffect(() => {
+        updateLocation();
+    }, []);
+
+    const updateLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setLocation({
+                        latitude,
+                        longitude,
+                    });
+                    setLoadingLocation(false);
+                },
+                () => {
+                    alert("Error in getting location. Proceeding without location data.");
+                    setLoadingLocation(false);
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by this browser. Proceeding without location data.");
+            setLoadingLocation(false);
+        }
+    };
 
   useEffect(() => {
     if (user && user.user && location) {
@@ -68,6 +95,7 @@ const Activator = ({ user }) => {
     console.log("going into the form", formData);
 
     e.preventDefault();
+    updateLocation();
     const newErrors = {};
     const requiredFields = ["itemName", "itemType", "brand", "color"];
     requiredFields.forEach((field) => {
@@ -96,6 +124,7 @@ const Activator = ({ user }) => {
       moreInfo: "",
     });
   };
+
 
   return (
     <div className="activator-div">
@@ -183,9 +212,9 @@ const Activator = ({ user }) => {
             Please fill out the missing fields.
           </div>
         )}
-        <button className="get-my-qr" type="submit">
-          Get My QR
-        </button>
+        <button className="get-my-qr" type="submit" disabled={loadingLocation}>
+            Get My QR
+          </button>
       </form>
     </div>
   );
