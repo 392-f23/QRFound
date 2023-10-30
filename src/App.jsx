@@ -7,12 +7,27 @@ import Map from './components/map/Map';
 import Items from './components/items/Items';
 
 const App = () => {
+  const items = [
+    { id: 1, name: 'iPhone 13' },
+    { id: 2, name: 'iPad Pro' },
+    { id: 3, name: 'MacBook Pro' },
+    { id: 4, name: 'Water Bottle' },
+    { id: 5, name: 'Backpack' },
+    // Add more devices here...
+  ];
   return (
     <div className="App">
       {/* <Header></Header>
       <ActivatePage></ActivatePage> */}
-      <Map></Map>
-      <Items></Items>
+
+      <div>
+      <Map className="map"></Map>
+      </div>
+
+      <div className="items">
+      <Items items={items}></Items>
+      </div>
+
     </div>
   );
 };

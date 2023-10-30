@@ -1,19 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import { useDbData } from "../../utilities/firebase.js";
+import Item from "../item/Item.jsx";
 
-const listOfItems = [
-    [10,20],
-    [20,10],
-    [30,30]
-]
-
-
-const Items = () => {
+const Items = ({items}) => {
     const [data, loading, error] = useDbData("/Items");
     console.log(data)
     return (
-        <p>Hello!</p>
+        <div className='items'>
+        {items.map(item => (
+            <Item key={item.id} item={item} />
+          ))}
+        </div>
     )
 }
 
