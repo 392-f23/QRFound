@@ -1,56 +1,87 @@
 .header-div {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: skyblue;
   border-bottom: 4px solid skyblue;
-  text-align: left;
-  align-items: center;
-  height: 8vh;
+  height: 65px;
   margin: 0;
   padding: 0 15px;
   font-size: 14px;
-  position: relative;
 }
 
-.header-div h1 {
-  margin-left: 10px;
+.left-header {
+  display: flex;
+  align-items: center;
+}
+
+.right-header {
+  display: flex;
+  align-items: center;
 }
 
 .qr-icon {
   height: 35px;
 }
 
+.header-div h1 {
+  margin-left: 10px;
+}
+
 .header-button {
-  position: absolute;
-  top: 20%;
-  right: 15px;
+  margin-left: auto;
+  padding-right: 0px;
 }
 
-.google-signin-btn img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.google-signin-btn {
+.google-signin-btn,
+.google-signed-in-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 15px;
   padding: 5px;
   border-radius: 10px;
   border: 3px solid skyblue;
   font-weight: 700;
   background: rgb(238, 248, 251);
+  cursor: pointer;
 }
 
-.google-signin-btn:hover {
+.google-signin-btn:hover,
+.google-signed-in-btn:hover {
   background: rgb(204, 240, 254);
 }
 
+.google-signin-btn img,
 .google-signed-in-btn img {
-  position: absolute;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  top: -20%;
-  right: 0px;
+}
+
+.google-signed-in-btn {
+  position: relative;
   background-color: transparent;
   border: none;
 }
+
+.right-header a {
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.right-header a:last-child {
+  margin-right: 0;
+  font-weight: bold; 
+}
+
+.right-header a:hover {
+  color: rgb(89, 161, 189);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+

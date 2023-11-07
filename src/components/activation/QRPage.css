@@ -6,7 +6,7 @@
   background-color: rgb(246, 253, 255);
   text-align: center;
   padding: 0px 20px;
-  height: 85vh;
+  height: calc(100vh - 70px);
 }
 
 .qr-code {

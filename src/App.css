@@ -7,4 +7,9 @@ body {
 .app-div {
   margin: 0;
   padding: 0;
+  height: 100vh;
+}
+
+.page-body {
+  height: 80%;
 }
