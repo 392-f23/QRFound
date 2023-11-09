@@ -11,6 +11,7 @@ function HomePage({ user }) {
   const mapRef = useRef();
   const [items, setItems] = useState([]);
   const [currentLocation, setCurrentLocation] = useState([51.505, -0.09]);
+  const [userLocation, setUserLocation] = useState([51.505, -0.09]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [data] = useDbData("registered_items"); // Assuming useDbData returns an array with data at index 0.
 
@@ -30,6 +31,7 @@ function HomePage({ user }) {
       const { latitude, longitude } = position.coords;
       const newLocation = [latitude, longitude];
       setCurrentLocation(newLocation);
+      setUserLocation(newLocation);
       mapRef.current?.flyTo(newLocation, 13);
     };
 
@@ -54,6 +56,10 @@ function HomePage({ user }) {
 
     var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
     return d;
+  };
+
+  const direction_url = (origin, destination) => {
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin[0]}%2c${origin[1]}&destination=${destination[0]}%2c${destination[1]}&travelmode=walking`;
   };
 
   return user ? (
@@ -101,7 +107,7 @@ function HomePage({ user }) {
                     className="pin-image"
                     src={`/pin-${pinNumber}.png`}
                   ></img>
-                  <p>{item.color} {item.brand} {item.itemName} <span style={{color:'skyblue'}}>{haversine_distance(currentLocation, item.location).toFixed(2)} miles</span> </p>
+                  <p>{item.color} {item.brand} {item.itemName} <span style={{color:'skyblue'}}>{haversine_distance(userLocation, item.location).toFixed(2)} miles</span> </p>
                 </div>
                 {selectedItem === item.id && (
                   <button
@@ -112,6 +118,13 @@ function HomePage({ user }) {
                   >
                     Get My QR
                   </button>
+                )}
+                {selectedItem === item.id && (
+                  <a target="_blank" href={direction_url(userLocation, item.location)}>
+                    <button>
+                      Direction
+                    </button>
+                  </a>
                 )}
               </li>
             );
