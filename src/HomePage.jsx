@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useDbData } from "./utilities/firebase";
+import { useDbData, useDbRemove } from "./utilities/firebase";
 import "./HomePage.css";
 
 function HomePage({ user }) {
@@ -15,6 +15,7 @@ function HomePage({ user }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [data] = useDbData("registered_items");
   const [isLoading, setIsLoading] = useState(true);
+  const [removeData, removeResult] = useDbRemove();
 
   // Update items when data changes
 
@@ -73,6 +74,13 @@ function HomePage({ user }) {
       );
     return d;
   };
+
+  
+
+  const handleRemove = (item) => {
+    removeData(`/registered_items/${item.id}`);
+  };
+
 
   const direction_url = (origin, destination) => {
     return `https://www.google.com/maps/dir/?api=1&origin=${origin[0]}%2c${origin[1]}&destination=${destination[0]}%2c${destination[1]}&travelmode=walking`;
@@ -154,6 +162,13 @@ function HomePage({ user }) {
                         <button>Directions</button>
                       </a>
                     )}
+                    {item.userId === user?.uid && (
+                      <button
+                        onClick={() => handleRemove(item, index)}
+                      >
+                        Remove
+                      </button>
+                    )}
                   </div>
                 </li>
               );
@@ -167,6 +182,8 @@ function HomePage({ user }) {
   ) : (
     <p className="no-account-text">Please Sign In To Continue Using QRFound</p>
   );
+  
+
 }
 
 export default HomePage;
