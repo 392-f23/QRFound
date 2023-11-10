@@ -13,7 +13,8 @@ function HomePage({ user }) {
   const [currentLocation, setCurrentLocation] = useState([51.505, -0.09]);
   const [userLocation, setUserLocation] = useState([51.505, -0.09]);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [data] = useDbData("registered_items"); // Assuming useDbData returns an array with data at index 0.
+  const [data] = useDbData("registered_items");
+  const [isLoading, setIsLoading] = useState(true);
 
   // Update items when data changes
   useEffect(() => {
@@ -22,6 +23,7 @@ function HomePage({ user }) {
         .filter(([_, value]) => value.userId === user?.uid)
         .map(([id, value]) => ({ id, ...value }));
       setItems(userItems);
+      setIsLoading(false);
     }
   }, [data, user?.uid]);
 
@@ -49,18 +51,33 @@ function HomePage({ user }) {
 
   const haversine_distance = (mk1, mk2) => {
     var R = 3958.8; // Radius of the Earth in miles
-    var rlat1 = mk1[1] * (Math.PI/180); // Convert degrees to radians
-    var rlat2 = mk2[1] * (Math.PI/180); // Convert degrees to radians
-    var difflat = rlat2-rlat1; // Radian difference (latitudes)
-    var difflon = (mk2[0]-mk1[0]) * (Math.PI/180); // Radian difference (longitudes)
+    var rlat1 = mk1[1] * (Math.PI / 180); // Convert degrees to radians
+    var rlat2 = mk2[1] * (Math.PI / 180); // Convert degrees to radians
+    var difflat = rlat2 - rlat1; // Radian difference (latitudes)
+    var difflon = (mk2[0] - mk1[0]) * (Math.PI / 180); // Radian difference (longitudes)
 
-    var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+    var d =
+      2 *
+      R *
+      Math.asin(
+        Math.sqrt(
+          Math.sin(difflat / 2) * Math.sin(difflat / 2) +
+            Math.cos(rlat1) *
+              Math.cos(rlat2) *
+              Math.sin(difflon / 2) *
+              Math.sin(difflon / 2)
+        )
+      );
     return d;
   };
 
   const direction_url = (origin, destination) => {
     return `https://www.google.com/maps/dir/?api=1&origin=${origin[0]}%2c${origin[1]}&destination=${destination[0]}%2c${destination[1]}&travelmode=walking`;
   };
+
+  if (isLoading) {
+    return <div className="loading-spinner"></div>;
+  }
 
   return user ? (
     <div className="home-container">
@@ -94,41 +111,59 @@ function HomePage({ user }) {
       <div className="items-panel">
         <ul className="items-list">
           <p className="my-items-p">{user.displayName}'s Items</p>
-          {items.map((item, index) => {
-            const pinNumber = (index % 9) + 1;
-            return (
-              <li
-                key={item.id}
-                className="item-entry"
-                onClick={() => handleItemClick(item)}
-              >
-                <div className="pin-and-name">
-                  <img
-                    className="pin-image"
-                    src={`/pin-${pinNumber}.png`}
-                  ></img>
-                  <p>{item.color} {item.brand} {item.itemName} <span style={{color:'skyblue'}}>{haversine_distance(userLocation, item.location).toFixed(2)} miles</span> </p>
-                </div>
-                {selectedItem === item.id && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/myqr/${item.id}`);
-                    }}
+          {items.length > 0 ? (
+            items.map((item, index) => {
+              items.map((item, index) => {
+                const pinNumber = (index % 9) + 1;
+                return (
+                  <li
+                    key={item.id}
+                    className="item-entry"
+                    onClick={() => handleItemClick(item)}
                   >
-                    Get My QR
-                  </button>
-                )}
-                {selectedItem === item.id && (
-                  <a target="_blank" href={direction_url(userLocation, item.location)}>
-                    <button>
-                      Direction
-                    </button>
-                  </a>
-                )}
-              </li>
-            );
-          })}
+                    <div className="pin-and-name">
+                      <img
+                        className="pin-image"
+                        src={`/pin-${pinNumber}.png`}
+                      ></img>
+                      <p>
+                        {item.color} {item.brand} {item.itemName}{" "}
+                        <span style={{ color: "skyblue", marginLeft: "5px" }}>
+                          {haversine_distance(
+                            userLocation,
+                            item.location
+                          ).toFixed(2)}{" "}
+                          miles
+                        </span>{" "}
+                      </p>
+                    </div>
+                    <div className="home-page-buttons">
+                      {selectedItem === item.id && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/myqr/${item.id}`);
+                          }}
+                        >
+                          Get My QR
+                        </button>
+                      )}
+                      {selectedItem === item.id && (
+                        <a
+                          target="_blank"
+                          href={direction_url(userLocation, item.location)}
+                        >
+                          <button>Directions</button>
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                );
+              });
+            })
+          ) : (
+            <li className="no-items">No items shown</li>
+          )}
         </ul>
       </div>
     </div>
