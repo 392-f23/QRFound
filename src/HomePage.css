@@ -26,7 +26,7 @@
   cursor: pointer;
 }
 
-.items-list button {
+.items-list .btn {
   display: block;
   padding: 10px 5px;
   width: 100px;
@@ -36,7 +36,7 @@
   font-family: "Raleway", sans-serif;
 }
 
-.items-list button:hover {
+.items-list .btn:hover {
   background-color: skyblue;
 }
 
@@ -105,4 +105,18 @@
 
 .no-items {
   margin-left: 5px;
+}
+
+.remove-btn {
+  display: block;
+  padding: 10px 5px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(243, 178, 187);
+  font-family: "Raleway", sans-serif;
+  width: 35px;
+}
+
+.remove-btn:hover {
+  background-color: rgb(231, 145, 157);
 }

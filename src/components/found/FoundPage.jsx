@@ -23,7 +23,7 @@ const FoundPage = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           updateData({
-            location: { latitude, longitude },
+            location: [latitude, longitude],
           });
           alert("Location updated successfully!");
         },
@@ -51,7 +51,7 @@ const FoundPage = () => {
             <strong>Type:</strong> {item.itemType}
           </p>
           {/* You can continue listing other details as you prefer */}
-          <button className="update-location" onClick={updateLocation}>Update Location</button>
+          <button className="update-location" onClick={() => updateLocation()}>Update Location</button>
         </>
       ) : (
         <p>Loading item details...</p>

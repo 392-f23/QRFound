@@ -23,8 +23,10 @@ function HomePage({ user }) {
     if (data) {
       const userItems = Object.entries(data)
         .filter(([_, value]) => {
-          
-          return value.userId === user?.uid || value.additionalUserEmails?.includes(user?.email);
+          return (
+            value.userId === user?.uid ||
+            value.additionalUserEmails?.includes(user?.email)
+          );
         })
         .map(([id, value]) => ({ id, ...value }));
       setItems(userItems);
@@ -75,12 +77,9 @@ function HomePage({ user }) {
     return d;
   };
 
-  
-
   const handleRemove = (item) => {
     removeData(`/registered_items/${item.id}`);
   };
-
 
   const direction_url = (origin, destination) => {
     return `https://www.google.com/maps/dir/?api=1&origin=${origin[0]}%2c${origin[1]}&destination=${destination[0]}%2c${destination[1]}&travelmode=walking`;
@@ -150,6 +149,7 @@ function HomePage({ user }) {
                           e.stopPropagation();
                           navigate(`/myqr/${item.id}`);
                         }}
+                        className="btn"
                       >
                         Get My QR
                       </button>
@@ -159,14 +159,17 @@ function HomePage({ user }) {
                         target="_blank"
                         href={direction_url(userLocation, item.location)}
                       >
-                        <button>Directions</button>
+                        <button
+                        className="btn"
+                        >Directions</button>
                       </a>
                     )}
                     {item.userId === user?.uid && (
                       <button
                         onClick={() => handleRemove(item, index)}
+                        className="remove-btn"
                       >
-                        Remove
+                        X
                       </button>
                     )}
                   </div>
@@ -182,8 +185,6 @@ function HomePage({ user }) {
   ) : (
     <p className="no-account-text">Please Sign In To Continue Using QRFound</p>
   );
-  
-
 }
 
 export default HomePage;
