@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "qrfound-95d07"
-  }
+    "default": "qrfound-new"
+  },
+  "targets": {},
+  "etags": {}
 }

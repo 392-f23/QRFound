@@ -30,13 +30,13 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDN41ayO362EYm-H-vzsAS3x-ESUxdRTFo",
-  authDomain: "qrfound-95d07.firebaseapp.com",
-  databaseURL: "https://qrfound-95d07-default-rtdb.firebaseio.com",
-  projectId: "qrfound-95d07",
-  storageBucket: "qrfound-95d07.appspot.com",
-  messagingSenderId: "592501035460",
-  appId: "1:592501035460:web:2b985f3c10074b78e2d491"
+  apiKey: "AIzaSyDxd0pwFs5WS79mfDslDfDpgkfWIK7XIjI",
+  authDomain: "qrfound-new.firebaseapp.com",
+  projectId: "qrfound-new",
+  storageBucket: "qrfound-new.appspot.com",
+  messagingSenderId: "1000353897810",
+  appId: "1:1000353897810:web:55e49937df5ee874adee8b",
+  measurementId: "G-F0ZKVQ7LJ6"
 };
 
 // Initialize Firebase
