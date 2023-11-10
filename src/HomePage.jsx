@@ -23,7 +23,6 @@ function HomePage({ user }) {
         .filter(([_, value]) => value.userId === user?.uid)
         .map(([id, value]) => ({ id, ...value }));
       setItems(userItems);
-      setIsLoading(false);
     }
   }, [data, user?.uid]);
 
@@ -75,10 +74,6 @@ function HomePage({ user }) {
     return `https://www.google.com/maps/dir/?api=1&origin=${origin[0]}%2c${origin[1]}&destination=${destination[0]}%2c${destination[1]}&travelmode=walking`;
   };
 
-  if (isLoading) {
-    return <div className="loading-spinner"></div>;
-  }
-
   return user ? (
     <div className="home-container">
       <MapContainer
@@ -113,56 +108,54 @@ function HomePage({ user }) {
           <p className="my-items-p">{user.displayName}'s Items</p>
           {items.length > 0 ? (
             items.map((item, index) => {
-              items.map((item, index) => {
-                const pinNumber = (index % 9) + 1;
-                return (
-                  <li
-                    key={item.id}
-                    className="item-entry"
-                    onClick={() => handleItemClick(item)}
-                  >
-                    <div className="pin-and-name">
-                      <img
-                        className="pin-image"
-                        src={`/pin-${pinNumber}.png`}
-                      ></img>
-                      <p>
-                        {item.color} {item.brand} {item.itemName}{" "}
-                        <span style={{ color: "skyblue", marginLeft: "5px" }}>
-                          {haversine_distance(
-                            userLocation,
-                            item.location
-                          ).toFixed(2)}{" "}
-                          miles
-                        </span>{" "}
-                      </p>
-                    </div>
-                    <div className="home-page-buttons">
-                      {selectedItem === item.id && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/myqr/${item.id}`);
-                          }}
-                        >
-                          Get My QR
-                        </button>
-                      )}
-                      {selectedItem === item.id && (
-                        <a
-                          target="_blank"
-                          href={direction_url(userLocation, item.location)}
-                        >
-                          <button>Directions</button>
-                        </a>
-                      )}
-                    </div>
-                  </li>
-                );
-              });
+              const pinNumber = (index % 9) + 1;
+              return (
+                <li
+                  key={item.id}
+                  className="item-entry"
+                  onClick={() => handleItemClick(item)}
+                >
+                  <div className="pin-and-name">
+                    <img
+                      className="pin-image"
+                      src={`/pin-${pinNumber}.png`}
+                    ></img>
+                    <p>
+                      {item.color} {item.brand} {item.itemName}{" "}
+                      <span style={{ color: "skyblue", marginLeft: "5px" }}>
+                        {haversine_distance(
+                          userLocation,
+                          item.location
+                        ).toFixed(2)}{" "}
+                        miles
+                      </span>{" "}
+                    </p>
+                  </div>
+                  <div className="home-page-buttons">
+                    {selectedItem === item.id && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/myqr/${item.id}`);
+                        }}
+                      >
+                        Get My QR
+                      </button>
+                    )}
+                    {selectedItem === item.id && (
+                      <a
+                        target="_blank"
+                        href={direction_url(userLocation, item.location)}
+                      >
+                        <button>Directions</button>
+                      </a>
+                    )}
+                  </div>
+                </li>
+              );
             })
           ) : (
-            <li className="no-items">No items shown</li>
+            <li className="no-items">No items found</li>
           )}
         </ul>
       </div>
