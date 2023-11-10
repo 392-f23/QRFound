@@ -17,14 +17,18 @@ function HomePage({ user }) {
   const [isLoading, setIsLoading] = useState(true);
 
   // Update items when data changes
+
   useEffect(() => {
     if (data) {
       const userItems = Object.entries(data)
-        .filter(([_, value]) => value.userId === user?.uid)
+        .filter(([_, value]) => {
+          
+          return value.userId === user?.uid || value.additionalUserEmails?.includes(user?.email);
+        })
         .map(([id, value]) => ({ id, ...value }));
       setItems(userItems);
     }
-  }, [data, user?.uid]);
+  }, [data, user?.uid, user?.email]);
 
   // Get and set current location
   useEffect(() => {

@@ -132,6 +132,8 @@ export const useDbExist = (path, value) => {
 
 export const useDbAdd = (path, index = null) => {
   const [result, setResult] = useState(null);
+  console.log(result);
+  
   const makeResult = (error) => ({
     success: !error,
     error: error || null,
@@ -150,6 +152,7 @@ export const useDbAdd = (path, index = null) => {
     },
     [database, path, index]
   );
+  console.log(result);
   return [addData, result];
 };
 

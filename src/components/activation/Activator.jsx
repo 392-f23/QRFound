@@ -22,6 +22,7 @@ const Activator = ({ user }) => {
     color: "",
     photo: "",
     moreInfo: "",
+    additionalUserEmails: [], 
   });
   const [loadingLocation, setLoadingLocation] = useState(true);
 
@@ -50,6 +51,32 @@ const Activator = ({ user }) => {
             setLoadingLocation(false);
         }
     };
+    const [newAdditionalUserEmail, setNewAdditionalUserEmail] = useState('');
+
+  const handleAdditionalUserEmailChange = (e) => {
+    setNewAdditionalUserEmail(e.target.value);
+  };
+
+  const handleAddAdditionalUserEmail = () => {
+    if (newAdditionalUserEmail.trim() !== '') {
+      setFormData((prevData) => ({
+        ...prevData,
+        additionalUserEmails: [...prevData.additionalUserEmails, newAdditionalUserEmail],
+      }));
+      setNewAdditionalUserEmail('');
+    }
+  };
+
+  const handleRemoveAdditionalUserEmail = (index) => {
+    setFormData((prevData) => {
+      const updatedEmails = [...prevData.additionalUserEmails];
+      updatedEmails.splice(index, 1);
+      return {
+        ...prevData,
+        additionalUserEmails: updatedEmails,
+      };
+    });
+  };
 
   useEffect(() => {
     if (user && user.user && location) {
@@ -122,6 +149,7 @@ const Activator = ({ user }) => {
       color: "",
       photo: "",
       moreInfo: "",
+      additionalUserEmails: [],
     });
   };
 
@@ -196,6 +224,35 @@ const Activator = ({ user }) => {
             onChange={handleFileInputChange}
             accept="image/*"
           />
+        </div>
+        <label htmlFor="additionalUserEmails">ADDITIONAL USER EMAILS</label>
+        <div className="additional-user-emails">
+          {formData.additionalUserEmails.map((email, index) => (
+            <div key={index} className="additional-user-email">
+              {email}
+              <button
+                type="button"
+                onClick={() => handleRemoveAdditionalUserEmail(index)}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <div className="additional-user-email">
+            <input
+              type="text"
+              id="additionalUserEmail"
+              name="additionalUserEmail"
+              value={newAdditionalUserEmail}
+              onChange={handleAdditionalUserEmailChange}
+            />
+            <button
+              type="button"
+              onClick={handleAddAdditionalUserEmail}
+            >
+              Add
+            </button>
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="moreInfo">MORE INFO</label>
