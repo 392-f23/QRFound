@@ -36,6 +36,7 @@ function HomePage({ user }) {
   // Get and set current location
   useEffect(() => {
     const geoSuccess = (position) => {
+      setIsLoading(false);
       const { latitude, longitude } = position.coords;
       const newLocation = [latitude, longitude];
       setCurrentLocation(newLocation);
@@ -84,6 +85,10 @@ function HomePage({ user }) {
   const direction_url = (origin, destination) => {
     return `https://www.google.com/maps/dir/?api=1&origin=${origin[0]}%2c${origin[1]}&destination=${destination[0]}%2c${destination[1]}&travelmode=walking`;
   };
+
+  if (isLoading) {
+    return <div className="loading-spinner"></div>;
+  }
 
   return user ? (
     <div className="home-container">

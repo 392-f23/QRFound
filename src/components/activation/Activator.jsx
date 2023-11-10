@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Activator.css";
-import { useDbAdd, useDbUpdate } from "../../utilities/firebase";  
+import { useDbAdd, useDbUpdate } from "../../utilities/firebase";
 import { v4 as uuidv4 } from "uuid";
 import { useProfile } from "../../utilities/profile.js";
 
@@ -22,48 +22,53 @@ const Activator = ({ user }) => {
     color: "",
     photo: "",
     moreInfo: "",
-    additionalUserEmails: [], 
+    additionalUserEmails: [],
   });
   const [loadingLocation, setLoadingLocation] = useState(true);
 
-    useEffect(() => {
-        updateLocation();
-    }, []);
+  useEffect(() => {
+    updateLocation();
+  }, []);
 
-    const updateLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setLocation({
-                        latitude,
-                        longitude,
-                    });
-                    setLoadingLocation(false);
-                },
-                () => {
-                    alert("Error in getting location. Proceeding without location data.");
-                    setLoadingLocation(false);
-                }
-            );
-        } else {
-            alert("Geolocation is not supported by this browser. Proceeding without location data.");
-            setLoadingLocation(false);
+  const updateLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({
+            latitude,
+            longitude,
+          });
+          setLoadingLocation(false);
+        },
+        () => {
+          alert("Error in getting location. Proceeding without location data.");
+          setLoadingLocation(false);
         }
-    };
-    const [newAdditionalUserEmail, setNewAdditionalUserEmail] = useState('');
+      );
+    } else {
+      alert(
+        "Geolocation is not supported by this browser. Proceeding without location data."
+      );
+      setLoadingLocation(false);
+    }
+  };
+  const [newAdditionalUserEmail, setNewAdditionalUserEmail] = useState("");
 
   const handleAdditionalUserEmailChange = (e) => {
     setNewAdditionalUserEmail(e.target.value);
   };
 
   const handleAddAdditionalUserEmail = () => {
-    if (newAdditionalUserEmail.trim() !== '') {
+    if (newAdditionalUserEmail.trim() !== "") {
       setFormData((prevData) => ({
         ...prevData,
-        additionalUserEmails: [...prevData.additionalUserEmails, newAdditionalUserEmail],
+        additionalUserEmails: [
+          ...prevData.additionalUserEmails,
+          newAdditionalUserEmail,
+        ],
       }));
-      setNewAdditionalUserEmail('');
+      setNewAdditionalUserEmail("");
     }
   };
 
@@ -153,7 +158,6 @@ const Activator = ({ user }) => {
     });
   };
 
-
   return (
     <div className="activator-div">
       <h2 className="register-your-item">Register Your Item</h2>
@@ -215,43 +219,39 @@ const Activator = ({ user }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="photo">PHOTO</label>
-          <input
-            type="file"
-            id="photo"
-            name="photo"
-            value={formData.photo}
-            onChange={handleFileInputChange}
-            accept="image/*"
-          />
-        </div>
-        <label htmlFor="additionalUserEmails">ADDITIONAL USER EMAILS</label>
-        <div className="additional-user-emails">
-          {formData.additionalUserEmails.map((email, index) => (
-            <div key={index} className="additional-user-email">
-              {email}
-              <button
-                type="button"
-                onClick={() => handleRemoveAdditionalUserEmail(index)}
-              >
-                Remove
-              </button>
+          <label htmlFor="additionalUserEmails">ADDITIONAL USER EMAILS</label>
+          <div className="additional-user-emails">
+            {formData.additionalUserEmails.map((email, index) => (
+              <div key={index} className="additional-user-email">
+                {email}
+                <button
+                  type="button"
+                  onClick={() => handleRemoveAdditionalUserEmail(index)}
+                  className="button-remove"
+                >
+                  X
+                </button>
+              </div>
+            ))}
+            <div className="email-adder-div">
+              <div className="email-adder">
+                <input
+                  type="text"
+                  id="additionalUserEmail"
+                  name="additionalUserEmail"
+                  value={newAdditionalUserEmail}
+                  onChange={handleAdditionalUserEmailChange}
+                  className="input-additional-email"
+                />
+                <button
+                  type="button"
+                  onClick={handleAddAdditionalUserEmail}
+                  className="button-add"
+                >
+                  +
+                </button>
+              </div>
             </div>
-          ))}
-          <div className="additional-user-email">
-            <input
-              type="text"
-              id="additionalUserEmail"
-              name="additionalUserEmail"
-              value={newAdditionalUserEmail}
-              onChange={handleAdditionalUserEmailChange}
-            />
-            <button
-              type="button"
-              onClick={handleAddAdditionalUserEmail}
-            >
-              Add
-            </button>
           </div>
         </div>
         <div className="form-group">
@@ -270,8 +270,8 @@ const Activator = ({ user }) => {
           </div>
         )}
         <button className="get-my-qr" type="submit" disabled={loadingLocation}>
-            Get My QR
-          </button>
+          Get My QR
+        </button>
       </form>
     </div>
   );

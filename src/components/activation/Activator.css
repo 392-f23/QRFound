@@ -102,3 +102,49 @@ textarea[name="moreInfo"]:focus {
 .input-error {
   background-color: rgb(255, 230, 234);
 }
+
+.button-remove {
+  border: none;
+  background-color: white;
+  color: rgb(244, 116, 116);
+}
+
+.button-remove:hover{
+  border: none;
+  background-color: white;
+  color: rgb(244, 116, 116);
+  cursor: pointer;
+}
+
+.button-add {
+  border: none;
+  background-color: transparent;
+  color: skyblue;
+  font-size: 20px;
+  position: absolute;
+  top: 5px;
+  right: calc(50vw - 180px);
+}
+
+.button-add:hover {
+  border: none;
+  background-color: transparent;
+  color: skyblue;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.additional-user-email {
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.additional-user-email {
+  font-size: 15px;
+}
+
+.email-adder {
+  position: relative;
+}
+
+
